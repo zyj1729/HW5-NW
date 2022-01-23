@@ -12,6 +12,11 @@ def main():
     tt_seq, tt_header = read_fasta("./data/tursiops_truncatus_BRD2.fa")
 
     # TODO Align all species to humans and print species in order of most similar to human BRD
+    # using gap opening penalty of 11 and a gap extension penalty of 1
+    pass
+
+    # TODO print all of the alignment score between each species BRD2 and human BRD2
+    # using gap opening penalty of 11 and a gap extension penalty of 1
     pass
 
 if __name__ == "__main__":

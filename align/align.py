@@ -22,9 +22,9 @@ class NeedlemanWunsch:
         alignment_score: float
             Score of alignment from algorithm
         gap_open: float
-        	Gap opening penalty
+            Gap opening penalty
         gap_extend: float
-        	Gap extension penalty
+            Gap extension penalty
     """
     def __init__(self, sub_matrix_file: str, gap_open: float, gap_extend: float):
         # Init alignment and gap matrices
@@ -106,38 +106,41 @@ class NeedlemanWunsch:
         Don't forget to comment your code!
         """
         # Initialize 6 matrix private attributes for use in alignment
-		# create matrices for alignment scores and gaps
-		self._align_matrix = np.ones((len(seqA) + 1, len(seqB) + 1)) * -np.inf
-		self._gapA_matrix = np.ones((len(seqA) + 1, len(seqB) + 1)) * -np.inf
-		self._gapB_matrix = np.ones((len(seqA) + 1, len(seqB) + 1)) * -np.inf
+        # create matrices for alignment scores and gaps
+        self._align_matrix = np.ones((len(seqA) + 1, len(seqB) + 1)) * -np.inf
+        self._gapA_matrix = np.ones((len(seqA) + 1, len(seqB) + 1)) * -np.inf
+        self._gapB_matrix = np.ones((len(seqA) + 1, len(seqB) + 1)) * -np.inf
 
-		# create matrices for pointers used in backtrace procedure
-		self._back = np.ones((len(seqA) + 1, len(seqB) + 1)) * -np.inf
-		self._back_A = np.ones((len(seqA) + 1, len(seqB) + 1)) * -np.inf
-		self._back_B = np.ones((len(seqA) + 1, len(seqB) + 1)) * -np.inf
+        # create matrices for pointers used in backtrace procedure
+        self._back = np.ones((len(seqA) + 1, len(seqB) + 1)) * -np.inf
+        self._back_A = np.ones((len(seqA) + 1, len(seqB) + 1)) * -np.inf
+        self._back_B = np.ones((len(seqA) + 1, len(seqB) + 1)) * -np.inf
 
-		# TODO Implement the global sequence alignment below
-		pass
+        # TODO Implement the global sequence alignment here
+        pass
 
-		self.alignment_score, self.seqA_align, self.seqB_align = self._backtrace()
-		alignment_score = self.alignment_score
-		return alignment_score
+        self.alignment_score, self.seqA_align, self.seqB_align = self._backtrace()
+        alignment_score = self.alignment_score
+        return alignment_score
 
-	def _backtrace(self) -> Tuple[float, str, str]:
-		"""
-		# TODO Implement the traceback procedure method below
-		based on the heuristic you implement in the align method.
-		The traceback method should return a tuple of the alignment
-		score, the seqA alignment and the seqB alignment respectively.
-		"""
-		# Implement this method based upon the heuristic chosen in the align method above.
-		pass
+    def _backtrace(self) -> Tuple[float, str, str]:
+        """
+        # TODO Implement the traceback procedure method below
+        based on the heuristic you implement in the align method.
+        The traceback method should return a tuple of the alignment
+        score, the seqA alignment and the seqB alignment respectively.
+        """
+        # Implement this method based upon the heuristic chosen in the align method above.
+        pass
 
 
 def read_fasta(fasta_file: str) -> Tuple[str, str]:
     """
     This function reads in a FASTA file and returns the associated
     string of characters (residues or nucleotides) and the header.
+    This function assumes a single protein or nucleotide sequence
+    per fasta file and will only read in the first sequence in the
+    file if multiple are provided.
 
     Parameters:
         fasta_file: str
@@ -150,13 +153,20 @@ def read_fasta(fasta_file: str) -> Tuple[str, str]:
         header: str
             Fasta header
     """
+    assert fasta_file.endswith(".fa"), "Fasta file must be a fasta file with the suffix .fa"
     with open(fasta_file) as f:
-        is_header = True
-        seq = ''  # initializing sequence
+        seq = ""  # initializing sequence
+        first_header = True
         for line in f:
-            if is_header and line.strip().startswith('>'):
+            is_header = line.strip().startswith(">")
+            # Reading in the first header
+            if is_header and first_header:
                 header = line.strip()  # reading in fasta header
-                is_header = False
-            else:
-                seq += line.strip().upper()  # generating full seq
+                first_header = False
+            # Reading in the sequence line by line
+            elif not is_header:
+                seq += line.strip().upper()  # generating full sequence
+            # Breaking if more than one header is provided in the fasta file
+            elif is_header and not first_header:
+                break
     return seq, header
