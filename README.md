@@ -4,7 +4,7 @@ Needleman Wunsch Algorithm
 
 # Assignment Overview
 The purpose of this assigment is to have you implement the Needleman-Wunsch global pairwise sequence alignment algorithm (dynamic programming).
-
+See this [video](https://www.youtube.com/watch?v=NqYY0PJbD3s) for a walk through of the algorithm implementation
 
 # Assignment Tasks
 ## Coding Assessment
