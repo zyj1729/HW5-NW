@@ -1,5 +1,5 @@
 # Import NeedlemanWunsch class and read_fasta function
-from align.align import read_fasta, NeedlemanWunsch
+from align import read_fasta, NeedlemanWunsch
 
 def main():
     """
