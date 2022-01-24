@@ -39,10 +39,23 @@ Ensure that the Github actions complete the following:
 To get started you will need to fork this repository onto your own Github account. Work on the codebase from your own repo and commit changes. 
 
 The following packages will be needed:
-    - numpy
-    - pytest
+* numpy
+* pytest
 
 # Completing the assignment
 Make sure to push all your code to Github, ensure that your unit tests are correct, and submit a link to your Github through the Google classroom assignment.
 
 # Grading
+## Code (6 points)
+* Pairwise global alignment works properly (6)
+    * Correct implementation of Needleman-Wunsch algorithm (4)
+    * Produces correct order of species in main.py (1) 
+    * Produces correct NW alignment scores in main.py (1)
+
+## Unit tests (3 points)
+* `test_nw_alignment` function properly checks that matrices are filled in correctly for alignment of test_seq1.fa and test_seq2.fa
+* `test_nw_backtrace` function properly checks that backtrace works correctly
+
+## Style (1 points)
+* Readable code with clear comments and method descriptions
+
