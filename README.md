@@ -53,9 +53,9 @@ Make sure to push all your code to Github, ensure that your unit tests are corre
     * Produces correct NW alignment scores in main.py (1)
 
 ## Unit tests (3 points)
-* `test_nw_alignment` function properly checks that matrices are filled in correctly for alignment of test_seq1.fa and test_seq2.fa
-* `test_nw_backtrace` function properly checks that backtrace works correctly
+* `test_nw_alignment` function properly checks that matrices are filled in correctly for alignment of test_seq1.fa and test_seq2.fa (1.5)
+* `test_nw_backtrace` function properly checks that backtrace works correctly (1.5)
 
 ## Style (1 points)
-* Readable code with clear comments and method descriptions
+* Readable code with clear comments and method descriptions (1)
 
