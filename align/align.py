@@ -40,16 +40,19 @@ class NeedlemanWunsch:
         # Init alignment_score
         self.alignment_score = 0
 
-        # Defining amino acid residue alphabet
-        self._alphabet = []
-
         # Init empty alignment attributes
         self.seqA_align = ""
         self.seqB_align = ""
 
+        # Init empty sequences
+        self._seqA = ""
+        self._seqB = ""
+
         # Setting gap open and gap extension penalties
         self.gap_open = gap_open
+        assert gap_open < 0, "Gap opening penalty must be negative."
         self.gap_extend = gap_extend
+        assert gap_extend < 0, "Gap extension penalty must be negative."
 
         # Generating substitution matrix
         self.sub_dict = self._read_sub_matrix(sub_matrix_file) # substitution dictionary
@@ -93,14 +96,14 @@ class NeedlemanWunsch:
                     res_2 += 1
                 elif start is True and res_2 == len(residue_list):
                     break
-        # saving the residue alphabet for use in downstream sequence alignment
-        self._alphabet = residue_list
         return dict_sub
 
-    def align(self, seqA: str, seqB: str) -> float:
+    def align(self, seqA: str, seqB: str) -> Tuple[float, str, str]:
         """
         # TODO: Fill in the Needleman-Wunsch Algorithm below
-        to perform global sequence alignment of seqA and seqB.
+        to perform global sequence alignment of seqA and seqB
+        and return a tuple with the following format
+        (alignment score, seqA alignment, seqB alignment)
         Also, write up a docstring for this function using the
         _read_sub_matrix as an example.
         Don't forget to comment your code!
@@ -116,12 +119,18 @@ class NeedlemanWunsch:
         self._back_A = np.ones((len(seqA) + 1, len(seqB) + 1)) * -np.inf
         self._back_B = np.ones((len(seqA) + 1, len(seqB) + 1)) * -np.inf
 
+        # Resetting alignment in case method is called more than once
+        self.seqA_align = ""
+        self.seqB_align = ""
+
+        # Initializing sequences for use in backtrace method
+        self._seqA = seqA
+        self._seqB = seqB
+
         # TODO Implement the global sequence alignment here
         pass
 
-        self.alignment_score, self.seqA_align, self.seqB_align = self._backtrace()
-        alignment_score = self.alignment_score
-        return alignment_score
+        return self._backtrace()
 
     def _backtrace(self) -> Tuple[float, str, str]:
         """
