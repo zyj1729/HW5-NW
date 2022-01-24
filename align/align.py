@@ -123,6 +123,9 @@ class NeedlemanWunsch:
         self.seqA_align = ""
         self.seqB_align = ""
 
+        # Resetting alignment score in case method is called more than once
+        self.alignment_score = 0
+
         # Initializing sequences for use in backtrace method
         self._seqA = seqA
         self._seqB = seqB
