@@ -59,7 +59,7 @@ class NeedlemanWunsch:
 
     def _read_sub_matrix(self, sub_matrix_file):
         """
-        DO NOT MODIFY THIS FUNCTION! IT IS ALREADY COMPLETE!
+        DO NOT MODIFY THIS METHOD! IT IS ALREADY COMPLETE!
 
         This function reads in a scoring matrix from any matrix like file.
         Where there is a line of the residues followed by substitution matrix.
@@ -145,6 +145,8 @@ class NeedlemanWunsch:
 
 def read_fasta(fasta_file: str) -> Tuple[str, str]:
     """
+    DO NOT MODIFY THIS FUNCTION! IT IS ALREADY COMPLETE!
+
     This function reads in a FASTA file and returns the associated
     string of characters (residues or nucleotides) and the header.
     This function assumes a single protein or nucleotide sequence
