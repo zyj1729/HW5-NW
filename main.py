@@ -20,6 +20,16 @@ def main():
     # TODO print all of the alignment score between each species BRD2 and human BRD2
     # using gap opening penalty of -10 and a gap extension penalty of -1 and BLOSUM62 matrix
     pass
+    
+    # MY TEST FUNCTIONS
+    test1_seq, test1_header = read_fasta("./data/test_seq1.fa")
+    test2_seq, test2_header = read_fasta("./data/test_seq2.fa")
+    test_NW = NeedlemanWunsch('substitution_matrices/BLOSUM62.mat', gap_open = -10, gap_extend = -1)
+    alignment_score, seq1_alignment, seq2_alignment = test_NW.align(test1_seq, test2_seq)
+    print(alignment_score)
+    print(seq1_alignment)
+    print(seq2_alignment)
+    
 
 if __name__ == "__main__":
     main()
