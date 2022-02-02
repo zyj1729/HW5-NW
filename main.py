@@ -16,10 +16,10 @@ def main():
     # TODO Align all species to humans and print species in order of most similar to human BRD
     # using gap opening penalty of -10 and a gap extension penalty of -1 and BLOSUM62 matrix
     test_NW = NeedlemanWunsch('substitution_matrices/BLOSUM62.mat', gap_open = -10, gap_extend = -1)
-    gg, hs_align1, gg_align = test_NW.align(hs_seq, gg_seq)
-    mm, hs_align2, mm_align = test_NW.align(hs_seq, mm_seq)
-    br, hs_align3, br_align = test_NW.align(hs_seq, br_seq)
-    tt, hs_align4, tt_align = test_NW.align(hs_seq, tt_seq)
+    gg, _, _ = test_NW.align(hs_seq, gg_seq)
+    mm, _, _ = test_NW.align(hs_seq, mm_seq)
+    br, _, _ = test_NW.align(hs_seq, br_seq)
+    tt, _, _ = test_NW.align(hs_seq, tt_seq)
     scores = {"Gallus gallus (red junglefowl)": gg, 
     	"Mus musculus (mouse)": mm, 
     	"Balaeniceps rex (shoebill)": br, 
