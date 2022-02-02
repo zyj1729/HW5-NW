@@ -36,7 +36,7 @@ Note: To check that you have correclty implemented your algorithm the following 
    * Add "! [BuildStatus] (https://github.com/ < your-github-username > /Project3/workflows/Project3/badge.svg?event=push)" (update link and remove spaces) to the beginning of your README file
    * Also refer to Assignment 1 for more in-depth help with GitHub actions
 
-[TODO] Ensure that the Github actions complete the following:
+[DONE] Ensure that the Github actions complete the following:
   * runs pytest
 
 ### Pip Installable
