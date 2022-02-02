@@ -20,10 +20,10 @@ def test_nw_alignment():
     assert seq1_alignment == "MYQR"
     assert seq2_alignment == "M-QR"
     align_matrix = np.array([[  0., -np.inf, -np.inf, -np.inf],
- 					[-np.inf,   5., -11., -13.],
- 					[-np.inf, -12.,   4.,  -8.],
-					[-np.inf, -12.,  -1.,   5.],
-					[-np.inf, -14.,  -6.,   4.]])
+ 							 [-np.inf,   5., -11., -13.],
+ 							 [-np.inf, -12.,   4.,  -8.],
+							 [-np.inf, -12.,  -1.,   5.],
+							 [-np.inf, -14.,  -6.,   4.]])
     assert test_NW._align_matrix.all() == align_matrix.all()
     gapA_matrix = np.array([[-10., -np.inf, -np.inf, -np.inf],
 							[-11., -12.,  -6.,  -7.],
