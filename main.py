@@ -22,10 +22,17 @@ def main():
     pass
     
     # MY TEST FUNCTIONS
-    test1_seq, test1_header = read_fasta("./data/test_seq1.fa")
-    test2_seq, test2_header = read_fasta("./data/test_seq2.fa")
+    test1_seq, test1_header = read_fasta("./data/test_seq2.fa")
+    test2_seq, test2_header = read_fasta("./data/test_seq1.fa")
     test_NW = NeedlemanWunsch('substitution_matrices/BLOSUM62.mat', gap_open = -10, gap_extend = -1)
     alignment_score, seq1_alignment, seq2_alignment = test_NW.align(test1_seq, test2_seq)
+    print(alignment_score)
+    print(seq1_alignment)
+    print(seq2_alignment)
+    
+    test3_seq, test1_header = read_fasta("./data/test_seq3.fa")
+    test4_seq, test2_header = read_fasta("./data/test_seq4.fa")
+    alignment_score, seq1_alignment, seq2_alignment = test_NW.align(test3_seq, test4_seq)
     print(alignment_score)
     print(seq1_alignment)
     print(seq2_alignment)
