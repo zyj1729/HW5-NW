@@ -9,11 +9,11 @@ See this [video](https://www.youtube.com/watch?v=NqYY0PJbD3s) for a walk through
 # Assignment Tasks
 ## Coding Assessment
 **Note: All modules you need have already been imported.**
-* [TODO] Complete the `NeedlemanWunsch.align` method found in the align/align.py 
+* [DONE] Complete the `NeedlemanWunsch.align` method found in the align/align.py 
 	* Finish the method for filling in the alignment and gap matrices for Needleman-Wunsch.
-* [TODO] Complete the `NeedlemanWunsch._backtrace` method found in align/align.py
+* [DONE] Complete the `NeedlemanWunsch._backtrace` method found in align/align.py
   * Use the heuristic you have chosen to implement in the the `NeedlemanWunsch.align` method to implement the backtracing procedure.
-* [TODO] Complete the `main` function in main.py to 
+* [DONE] Complete the `main` function in main.py to 
     1. align all provided species BRD2 sequences to the human BRD2 sequence and print the species in order of most similar to least similar with respect to human BRD2.
     2. print the alignment scores corresponding to each species alignment to the human BRD2 sequence.
 
@@ -36,11 +36,11 @@ Note: To check that you have correclty implemented your algorithm the following 
    * Add "! [BuildStatus] (https://github.com/ < your-github-username > /Project3/workflows/Project3/badge.svg?event=push)" (update link and remove spaces) to the beginning of your README file
    * Also refer to Assignment 1 for more in-depth help with GitHub actions
 
-Ensure that the Github actions complete the following:
+[TODO] Ensure that the Github actions complete the following:
   * runs pytest
 
 ### Pip Installable
-* [TODO] make .toml file with flit and ensure that your package can be installed with pip
+* [DONE] make .toml file with flit and ensure that your package can be installed with pip
 
 # Getting Started
 To get started you will need to fork this repository onto your own Github account. Work on the codebase from your own repo and commit changes. 
