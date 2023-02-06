@@ -15,50 +15,12 @@ def main():
 
     # TODO Align all species to humans and print species in order of most similar to human BRD
     # using gap opening penalty of -10 and a gap extension penalty of -1 and BLOSUM62 matrix
-    test_NW = NeedlemanWunsch('substitution_matrices/BLOSUM62.mat', gap_open = -10, gap_extend = -1)
-    
-    gg, _, _ = test_NW.align(hs_seq, gg_seq)
-    mm, _, _ = test_NW.align(hs_seq, mm_seq)
-    br, _, _ = test_NW.align(hs_seq, br_seq)
-    tt, _, _ = test_NW.align(hs_seq, tt_seq)
-    scores = {"Gallus gallus (red junglefowl)": gg, 
-    	"Mus musculus (mouse)": mm, 
-    	"Balaeniceps rex (shoebill)": br, 
-    	"Tursiops truncatus (bottlenose dolphin)": tt}
+    pass
 
     # TODO print all of the alignment score between each species BRD2 and human BRD2
     # using gap opening penalty of -10 and a gap extension penalty of -1 and BLOSUM62 matrix
-    print("ALIGNMENT SCORES TO HUMAN BRD2")
-    scores = sorted(scores.items(), key = lambda item: item[1])
-    n = len(scores)
-    while n > 0:
-    	print(scores[n-1])
-    	n = n-1
-    print()
+    pass
     
-    """
-    # MY TEST FUNCTIONS
-    print("MY TEST 1")
-    test1_seq, test1_header = read_fasta("./data/test_seq1.fa")
-    test2_seq, test2_header = read_fasta("./data/test_seq2.fa")    
-    alignment_score, seq1_alignment, seq2_alignment = test_NW.align(test1_seq, test2_seq)
-    print(test_NW._align_matrix)
-    print(test_NW._gapA_matrix)
-    print(test_NW._gapB_matrix)
-    print(test_NW._back)
-    print(alignment_score)
-    print(seq1_alignment)
-    print(seq2_alignment)
-    print()
-    
-    print("MY TEST 2")
-    test3_seq, test1_header = read_fasta("./data/test_seq3.fa")
-    test4_seq, test2_header = read_fasta("./data/test_seq4.fa")
-    alignment_score, seq1_alignment, seq2_alignment = test_NW.align(test3_seq, test4_seq)
-    print(alignment_score)
-    print(seq1_alignment)
-    print(seq2_alignment)
-    """
 
 if __name__ == "__main__":
     main()
