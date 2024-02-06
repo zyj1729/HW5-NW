@@ -1,4 +1,4 @@
-# Project 4
+# Project 5
 Needleman Wunsch Algorithm
 
 
@@ -29,15 +29,8 @@ Note: To check that you have correclty implemented your algorithm the following 
 	
 	M---QLIRHP
 
-### Automate Testing with [Github Actions](https://docs.github.com/en/actions)
-  See blogposts below on helping set up Github actions with pytest:
-   * [post 1](https://blog.dennisokeeffe.com/blog/2021-08-08-pytest-with-github-actions)
-   * [post 2](https://mattsegal.dev/pytest-on-github-actions.html)
-   * Add "! [BuildStatus] (https://github.com/ < your-github-username > /Project3/workflows/Project3/badge.svg?event=push)" (update link and remove spaces) to the beginning of your README file
-   * Also refer to Assignment 1 for more in-depth help with GitHub actions
 
-[TODO] Ensure that the Github actions complete the following:
-  * runs pytest
+[TODO] Ensure that it runs pytest
 
 ### Pip Installable
 * [TODO] make .toml file with flit and ensure that your package can be installed with pip
@@ -60,9 +53,10 @@ Make sure to push all your code to Github, ensure that your unit tests are corre
     * Produces correct NW alignment scores in main.py (1)
 
 ## Unit tests (3 points)
-* `test_nw_alignment` function properly checks that matrices are filled in correctly for alignment of test_seq1.fa and test_seq2.fa (1.5)
-* `test_nw_backtrace` function properly checks that backtrace works correctly (1.5)
-
+* `test_nw_alignment` function properly checks that matrices are filled in correctly for alignment of test_seq1.fa and test_seq2.fa (1)
+* `test_nw_backtrace` function properly checks that backtrace works correctly (1)
+* Ensure functionality with pytest (1)
 ## Style (1 points)
 * Readable code with clear comments and method descriptions (1)
-
+## Extra credit (0.5)
+* Github actions/workflow (0.5)
