@@ -100,60 +100,119 @@ class NeedlemanWunsch:
 
     def align(self, seqA: str, seqB: str) -> Tuple[float, str, str]:
         """
-        TODO
-        
-        This function performs global sequence alignment of two strings
-        using the Needleman-Wunsch Algorithm
-        
+        This function performs global sequence alignment of two sequences using the Needleman-Wunsch algorithm.
+        It initializes matrices to keep track of alignment scores, backtracking directions, and gap penalties, then
+        fills these matrices based on the scoring scheme. Finally, it calls the _backtrace method to construct the
+        alignment from the matrices.
+
         Parameters:
-        	seqA: str
-         		the first string to be aligned
-         	seqB: str
-         		the second string to be aligned with seqA
-         
+            seqA (str): The first sequence to be aligned.
+            seqB (str): The second sequence to be aligned.
+
         Returns:
-         	(alignment score, seqA alignment, seqB alignment) : Tuple[float, str, str]
-         		the score and corresponding strings for the alignment of seqA and seqB
+            Tuple[float, str, str]: A tuple containing the alignment score and the aligned sequences.
         """
-        # Resetting alignment in case method is called more than once
+
+        # Preparation: reset alignment and score for potential re-use of this method
         self.seqA_align = ""
         self.seqB_align = ""
-
-        # Resetting alignment score in case method is called more than once
         self.alignment_score = 0
 
-        # Initializing sequences for use in backtrace method
+        # Keep original sequences for backtracing
         self._seqA = seqA
         self._seqB = seqB
-        
-        # TODO: Initialize matrix private attributes for use in alignment
-        # create matrices for alignment scores, gaps, and backtracing
-        pass
 
-        
-        # TODO: Implement global alignment here
-        pass      		
-        		    
+        # Initialize matrices for scores and backtracking
+        # Score matrix with gap penalties for first row/column
+        tmp_ali_scores = np.zeros([len(seqA) + 1, len(seqB) + 1])
+        tmp_ali_scores[0] = [self.gap_open + i * self.gap_extend if i else 0 for i in range(len(seqB) + 1)]
+        for i in range(1, len(seqA) + 1):
+            tmp_ali_scores[i][0] = self.gap_open + i * self.gap_extend
+        self._ali_scores = tmp_ali_scores
+
+        # Backtracking matrix to store directions ("<" for left, "^" for up, "`" for diagonal)
+        tmp_bt = np.zeros([len(seqA) + 1, len(seqB) + 1], dtype="str")
+        tmp_bt[0] = ["*"] + ["<" for i in range(1, len(seqB) + 1)]
+        for i in range(1, len(seqA) + 1):
+            tmp_bt[i][0] = "^"
+        self._bt = tmp_bt
+
+        # Gap matrix to indicate whether a gap was opened or extended
+        tmp_gap = np.zeros([len(seqA) + 1, len(seqB) + 1], dtype="str")
+        tmp_gap[0] = ["*"] + ["g" for i in range(1, len(seqB) + 1)]
+        for i in range(1, len(seqA) + 1):
+            tmp_gap[i][0] = "g"
+        self._gap = tmp_gap
+
+        # Main loop to fill in the matrices based on dynamic programming
+        for i in range(1, len(seqA) + 1):
+            for j in range(1, len(seqB) + 1):
+                # Calculate scores for moving from top, left, or diagonally (match/mismatch)
+                sTop = self._ali_scores[i - 1, j] + (self.gap_open + self.gap_extend if self._gap[i - 1, j] != "g" else self.gap_extend)
+                sLeft = self._ali_scores[i, j - 1] + (self.gap_open + self.gap_extend if self._gap[i, j - 1] != "g" else self.gap_extend)
+                sMatch = self._ali_scores[i - 1, j - 1] + self.sub_dict[(seqA[i - 1], seqB[j - 1])]
+
+                # Choose the highest score and update matrices accordingly
+                amax = np.argmax([sTop, sLeft, sMatch])
+                if amax == 0:
+                    self._ali_scores[i, j] = sTop
+                    self._bt[i, j] = "^"
+                    self._gap[i, j] = "g"
+                elif amax == 1:
+                    self._ali_scores[i, j] = sLeft
+                    self._bt[i, j] = "<"
+                    self._gap[i, j] = "g"
+                elif amax == 2:
+                    self._ali_scores[i, j] = sMatch
+                    self._bt[i, j] = "`"
+                    self._gap[i, j] = "*"
+
+        # After filling the matrices, perform backtracing to construct the aligned sequences
         return self._backtrace()
 
     def _backtrace(self) -> Tuple[float, str, str]:
         """
-        TODO
-        
-        This function traces back through the back matrix created with the
-        align function in order to return the final alignment score and strings.
-        
+        This private method backtraces through the backtracking matrix to construct the aligned sequences
+        and calculates the final alignment score. It starts from the bottom-right corner of the matrix and
+        moves according to the backtracking directions until it reaches the top-left corner.
+
         Parameters:
-        	None
-        
+            None
+
         Returns:
-         	(alignment score, seqA alignment, seqB alignment) : Tuple[float, str, str]
-         		the score and corresponding strings for the alignment of seqA and seqB
+            Tuple[float, str, str]: A tuple containing the alignment score and the aligned sequences.
         """
-        pass
+
+        # Initialize variables for aligned sequences
+        A_align = ""
+        B_align = ""
+        m = len(self._seqA)
+        n = len(self._seqB)
+
+        # Backtrace from bottom-right to top-left
+        while self._bt[m, n] != "*":
+            if self._bt[m, n] == "^":  # Move up
+                A_align += self._seqA[m - 1]
+                B_align += "-"
+                m -= 1
+            elif self._bt[m, n] == "<":  # Move left
+                A_align += "-"
+                B_align += self._seqB[n - 1]
+                n -= 1
+            elif self._bt[m, n] == "`":  # Move diagonally
+                A_align += self._seqA[m - 1]
+                B_align += self._seqB[n - 1]
+                m -= 1
+                n -= 1
+
+        # Reverse the aligned sequences as the backtracing starts from the end
+        self.seqA_align = A_align[::-1]
+        self.seqB_align = B_align[::-1]
+
+        # Final alignment score is in the bottom-right corner of the score matrix
+        self.alignment_score = self._ali_scores[-1, -1]
 
         return (self.alignment_score, self.seqA_align, self.seqB_align)
-
 
 def read_fasta(fasta_file: str) -> Tuple[str, str]:
     """

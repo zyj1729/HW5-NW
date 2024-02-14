@@ -14,7 +14,24 @@ def test_nw_alignment():
     """
     seq1, _ = read_fasta("./data/test_seq1.fa")
     seq2, _ = read_fasta("./data/test_seq2.fa")
+    NW = NeedlemanWunsch("./substitution_matrices/BLOSUM62.mat", -10, -1)
+    assert (NW._ali_scores == np.array([[  0., -11., -12., -13.],
+       [-11.,   5.,  -6.,  -7.],
+       [-12.,  -6.,   4.,  -7.],
+       [-13.,  -7.,  -1.,   5.],
+       [-14.,  -8.,  -6.,   4.]])).all(), "The alignment matrix is incorrect"
+    assert (NW._bt == np.array([['*', '<', '<', '<'],
+       ['^', '`', '<', '<'],
+       ['^', '^', '`', '<'],
+       ['^', '^', '`', '`'],
+       ['^', '^', '`', '`']], dtype='<U1')).all(), "The backtrace matrix is incorrect"
+    assert (NW._gap == array([['*', 'g', 'g', 'g'],
+       ['g', '*', 'g', 'g'],
+       ['g', 'g', '*', 'g'],
+       ['g', 'g', '*', '*'],
+       ['g', 'g', '*', '*']], dtype='<U1')).all(), "The gap matrix is incorrect"
     pass
+    
     
 
 def test_nw_backtrace():
@@ -27,7 +44,14 @@ def test_nw_backtrace():
     """
     seq3, _ = read_fasta("./data/test_seq3.fa")
     seq4, _ = read_fasta("./data/test_seq4.fa")
+    NW = NeedlemanWunsch("./substitution_matrices/BLOSUM62.mat", -10, -1)
+    score, seqA_align, seqB_align = NW.align(seq3, seq4)
+    assert score == 17, "Alignment score is incorrect for the test case"
+    assert seqA_align == 'MAVHQLIRRP', "Aligned seqA is incorrect"
+    assert seqB_align == 'M---QLIRHP', "Aligned seqB is incorrect"
     pass
+    
+    
 
 
 
