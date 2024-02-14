@@ -15,6 +15,7 @@ def test_nw_alignment():
     seq1, _ = read_fasta("./data/test_seq1.fa")
     seq2, _ = read_fasta("./data/test_seq2.fa")
     NW = NeedlemanWunsch("./substitution_matrices/BLOSUM62.mat", -10, -1)
+    score, seqA_align, seqB_align = NW.align(seq1, seq2)
     assert (NW._ali_scores == np.array([[  0., -11., -12., -13.],
        [-11.,   5.,  -6.,  -7.],
        [-12.,  -6.,   4.,  -7.],
