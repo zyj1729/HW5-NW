@@ -137,7 +137,7 @@ class NeedlemanWunsch:
             tmp_bt[i][0] = "^"
         self._bt = tmp_bt
 
-        # Gap matrix to indicate whether a gap was opened or extended
+        # Gap matrix to indicate whether a gap was opened
         tmp_gap = np.zeros([len(seqA) + 1, len(seqB) + 1], dtype="str")
         tmp_gap[0] = ["*"] + ["g" for i in range(1, len(seqB) + 1)]
         for i in range(1, len(seqA) + 1):
