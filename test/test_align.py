@@ -26,7 +26,7 @@ def test_nw_alignment():
        ['^', '^', '`', '<'],
        ['^', '^', '`', '`'],
        ['^', '^', '`', '`']], dtype='<U1')).all(), "The backtrace matrix is incorrect"
-    assert (NW._gap == array([['*', 'g', 'g', 'g'],
+    assert (NW._gap == np.array([['*', 'g', 'g', 'g'],
        ['g', '*', 'g', 'g'],
        ['g', 'g', '*', 'g'],
        ['g', 'g', '*', '*'],
